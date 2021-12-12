@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <script src="sketch.js"></script>
+    <div id="colorExample">&nbsp;</div>
+    <button id="bluetoothActivate" onclick="bluetoothButtonPressed();"><p id="bluetoothMessage">Due to Bluetooth API Limitations, Press this to Connect</p></button>
+    <button id="power" onclick="powerCycle();">Power Off/On</button>
+    <button id="mode" onclick="modeCycle();">Change Mode:</button>
+      <button id="cycle" onclick="cycleMode();">Cycle Mode: Current Mode = disconnected</button>
+        <button id="writeButton" onclick="onWriteButtonClick();">Write To Bulb</button>
+    <input type="color" id="rgbColorPicker">
+    <p id="status"/>
+    <h2 id="presets">Mode Presets:</h2>
+    <p id="technicalStatus">This web app looks for Bluetooth Lightbulbs with the characteristic FFE5 with the service FFE9 and then writes [56,'rr','gg','bb',00,f0,aa], If need be, this may be changed in the future. If you notice the changerate of the lightbulb to be slower than expected (very choppy), then refresh the page.</p>
+    <input type="range" id="bluetoothSendRate" name="Bluetooth Send Rate" min="0" max="50">
+  </body>
+</html>
