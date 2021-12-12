@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Ubuntu', sans-serif;
+}
+canvas {
+  display: block;
+}
+button {
+  border-radius: 5px;
+  border: 1px;
+  background: lightgrey;
+  font-family: 'Ubuntu', sans-serif;
+}
+#mode {
+  color: black;
+  width: 150px;
+}
+#colorExample {
+  border: 1px solid black;
+}
+#bluetoothActivate {
+  color: blue;
+  background: lightblue;
+  position: absolute;
+  bottom: 0px;
+  right: 100px;
+  margin: 25px;
+}
+#bluetoothMessage {
+  margin: 25px;
+  font: 24px;
+  font-align: center;
+}
+#cycle {
+  position: cte;
+  right: 0px;
+}
+#technicalStatus {
+  position: absolute;
+  bottom: 75px;
+  margin: 25px;
+}
