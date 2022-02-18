@@ -12,7 +12,7 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 let speechCount = 0;
-let errorShow = false;
+let errorShow = true;
 let lastKnownColor;
 
 recognition.onresult = function(event) {
@@ -87,6 +87,9 @@ function changeColor(colorWord) {
   bg.style.color = colorWord;
   tempColorStore = getComputedStyle(document.querySelector("#p")).color;
   tempColorArray = [tempColorStore.split('rgb(')[1].split(',')[0],tempColorStore.split(', ')[1],tempColorStore.split(', ')[2].split(')')[0]];
+  let hexColor = `#${tempColorArray[0].toString(16)}${tempColorArray[1].toString(16)}${tempColorArray[2].toString(16)}`
+  document.querySelector("#hexValue").textContent = hexColor;
+  document.querySelector("#p").style.backgroundColor = hexColor;
   onWriteButtonClick(parseInt(tempColorArray[0]),parseInt(tempColorArray[1]),parseInt(tempColorArray[2]));
 }
 
@@ -230,7 +233,7 @@ function hslToRgb(h, s, l){
 function errorToggle() {
   errorShow = !errorShow
   if (errorShow) {
-    document.querySelector("#errorSimple").style.display = 'inline'
+    document.querySelector("#errorSimple").style.display = 'block'
   } else {
     document.querySelector("#errorSimple").style.display = 'none'
   }

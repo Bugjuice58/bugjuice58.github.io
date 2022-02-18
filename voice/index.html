@@ -2,23 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-
-    <title>Speech color changer</title>
-
+    <title>Speech Color Changer - Kyū</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
   </head>
 
   <body>
-    <h1>Speech color changer</h1>
+    <h1>Speech Color Changer</h1>
     <p id="voiceStatus">To start voice, press "Connect to Lightbulb"</p>
     <p id="errorSimple">If any errors occur, you will see them here.</p>
+    <div id="buttonHold">
     <button id="errorButton" onclick="errorToggle()">Advanced Error</button>
-    <p id="errorReporter">If any errors occur, you will see them here.</p>
-    <script src="script.js"></script>
     <button id="btConnect" onclick="onReadButtonClick()">Connect to Lightbulb</button>
     <button id="listenerForceStart" onclick="recognition.start()">If for whatever reason your mic fails to get captured, press here.</button>
-    <div id="p"></div>
+    </div>
+    <div id="p">
+      <p id="hexValue">#ffc0cb</p>
+    </div>
   </body>
 </html>
+
