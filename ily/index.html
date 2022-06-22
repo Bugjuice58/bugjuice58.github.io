@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+            html, body {
+                font-size: 96px;
+                font-family: 'Ubuntu', sans-serif;
+            }
+            p {
+                text-align: center;
+                color: rgba(255,255,255,0.8)
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            I love you! <3
+        </p>
+    </body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        if (name != null) {
+            document.querySelector("p").textContent = `I love you ${name}! <3`
+        }
+        let fadeUp = true
+        let pink = '#ffa6d1'
+        let darkPink = '#9c436e'
+        let i = 0
+        let style = document.querySelector("html").style
+        function fade() {
+            if (i <= 1) {
+                fadeUp = !fadeUp
+            }
+            if (i >= 0) {
+                fadeUp = !fadeUp
+            }
+            if (fadeUp) {
+                style.backgroundColor = lerpColor(pink,darkPink,i)
+                i += 0.001
+            } else {
+                style.backgroundColor = lerpColor(pink,darkPink,i)
+                i -= 0.001
+            }
+            console.log(i)
+        }
+        function lerpColor(a, b, amount) {  //  https://gist.github.com/rosszurowski/67f04465c424a9bc0dae
+            var ah = parseInt(a.replace(/#/g, ''), 16),
+            ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
+            bh = parseInt(b.replace(/#/g, ''), 16),
+            br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
+            rr = ar + amount * (br - ar),
+            rg = ag + amount * (bg - ag),
+            rb = ab + amount * (bb - ab);
+            return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
+        }
+        interval = setInterval(fade,10)
+    </script>
+</html>
