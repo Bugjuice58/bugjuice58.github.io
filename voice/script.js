@@ -233,9 +233,9 @@ function hslToRgb(h, s, l){
 function errorToggle() {
   errorShow = !errorShow
   if (errorShow) {
-    document.querySelector("#errorSimple").style.display = 'block'
+    document.querySelector("#errorReporter").style.display = 'block'
   } else {
-    document.querySelector("#errorSimple").style.display = 'none'
+    document.querySelector("#errorReporter").style.display = 'none'
   }
 }
 
