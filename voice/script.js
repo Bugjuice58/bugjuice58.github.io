@@ -70,7 +70,7 @@ function checkForCommand(speechSent) {
                 //onWriteButtonClick(lastKnownColor[0],lastKnownColor[1],lastKnownColor[2])
               } else {
                 // The rest of this code will be finished here.
-                document.querySelector('#errorReporter').textContent = `I didn't recognise any commands, you said: "${speechSent}"`
+                document.querySelector('#errorSimple').textContent = `I didn't recognise any commands, you said: "${speechSent}"`
               }
             }
             }
