@@ -19,6 +19,7 @@
         </p>
     </body>
     <script>
+        let bubbleArray = [];
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
         if (name != null) {
@@ -55,6 +56,17 @@
             rb = ab + amount * (bb - ab);
             return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
         }
+        createBubbles('heart',15,(15,30),(5,10))
+        function createBubbles(icon,number,size,range) { //Icon, Number of Bubbles, Size Range (pixels), Speed Range (per frame) 
+            //Clears Bubble Array
+            bubbleArray = [];
+            for (let i = 0; i < number; i++) {
+                bubbleArray.push([icon,randomNumber(size),randomNumber(range)])
+            }
+        }
+        function randomNumber(min, max) { 
+            return Math.floor(Math.random() * (max - min) + min);
+        } 
         interval = setInterval(fade,10)
     </script>
 </html>
