@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
             html, body {
@@ -10,11 +11,12 @@
                 height: 100%;
                 padding: 0px;
                 margin: 0px;
-                overflow-y: hidden; 
+                overflow: hidden; 
             }
             p {
                 text-align: center;
-                color: rgba(255,255,255,0.8)
+                color: rgba(255,255,255,0.8);
+                overflow-anchor: none;  
             }
             #loveMessage {
                 position: absolute;
@@ -24,11 +26,14 @@
                 margin: 0px;
                 width: 100%;
                 transform: translate(50%, -50%);
+                overflow-anchor: none;  
+                font-size: 50px;
             }
             .bubble {
                 position: absolute;
                 padding: 0px;
                 margin: 0px;
+                overflow-anchor: none;  
             }
             ::-webkit-scrollbar {
                 display: none;
@@ -46,7 +51,7 @@
     <script>
         let html = document.querySelector("html")
         let bubbleArray = [];
-        let bubblePreset = ['heart',15,[90,180],[5,10],false];
+        let bubblePreset = ['heart',15,[90,180],[2,5],false];
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
         if (name != null) {
@@ -82,7 +87,7 @@
             rb = ab + amount * (bb - ab);
             return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
         }
-        createBubbles('heart',15,[90,180],[5,10],false)
+        createBubbles('heart',15,[90,180],[2,5],false)
         function createBubbles(icon,number,size,range,fades) { //Icon, Number of Bubbles, Size Range (pixels), Speed Range (per frame), Fades?
             //Clears Bubble Array
             bubbleArray = [];
@@ -94,8 +99,12 @@
                 bubble.style.left = `${bubbleArray[i][5]}px`
                 bubble.style.top = `${bubbleArray[i][6]}px`
                 bubble.style.fontSize = `${bubbleArray[i][1]}px`
+                bubble.style.width = "0px"
+                bubble.style.height = "0px"
+                bubble.width = "0px"
+                bubble.height = "0px"
                     if (icon == 'heart') {
-                        bubble.textContent = "💕"
+                        bubble.textContent = "❤️"
                     }
                 document.getElementById("bubbleHolder").appendChild(bubble)
             }
@@ -104,9 +113,9 @@
             for (let i = 0; i < bubbleArray.length; i++) {
                 let currentBubble = bubbleArray[i]
                 currentBubble[6] += currentBubble[2]
-                if (currentBubble[6] > html.clientHeight+200) {
+                if (currentBubble[6] > html.clientHeight) {
                     currentBubble[6] = -200
-                    currentBubble[2] = randomNumber(5,10)
+                    currentBubble[2] = randomNumber(2,5)
                     currentBubble[5] = randomNumber(-120,html.clientWidth+120)
                     currentBubble[1] = randomNumber(90,180)
                 }
