@@ -6,20 +6,47 @@
             html, body {
                 font-size: 96px;
                 font-family: 'Ubuntu', sans-serif;
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                overflow-y: hidden; 
             }
             p {
                 text-align: center;
                 color: rgba(255,255,255,0.8)
             }
+            #loveMessage {
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                padding: 0px;
+                margin: 0px;
+                width: 100%;
+                transform: translate(50%, -50%);
+            }
+            .bubble {
+                position: absolute;
+                padding: 0px;
+                margin: 0px;
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
         </style>
     </head>
     <body>
-        <p>
-            I love you! <3
+        <div id="bubbleHolder">
+
+        </div>
+        <p id="loveMessage">
+            I love you Lucy! <3
         </p>
     </body>
     <script>
+        let html = document.querySelector("html")
         let bubbleArray = [];
+        let bubblePreset = ['heart',15,[90,180],[5,10],false];
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
         if (name != null) {
@@ -44,7 +71,6 @@
                 style.backgroundColor = lerpColor(pink,darkPink,i)
                 i -= 0.001
             }
-            console.log(i)
         }
         function lerpColor(a, b, amount) {  //  https://gist.github.com/rosszurowski/67f04465c424a9bc0dae
             var ah = parseInt(a.replace(/#/g, ''), 16),
@@ -56,14 +82,41 @@
             rb = ab + amount * (bb - ab);
             return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
         }
-        createBubbles('heart',15,(15,30),(5,10))
-        function createBubbles(icon,number,size,range) { //Icon, Number of Bubbles, Size Range (pixels), Speed Range (per frame) 
+        createBubbles('heart',15,[90,180],[5,10],false)
+        function createBubbles(icon,number,size,range,fades) { //Icon, Number of Bubbles, Size Range (pixels), Speed Range (per frame), Fades?
             //Clears Bubble Array
             bubbleArray = [];
             for (let i = 0; i < number; i++) {
-                bubbleArray.push([icon,randomNumber(size),randomNumber(range)])
+                bubbleArray.push([icon,randomNumber(size[0],size[1]),randomNumber(range[0],range[1]),fades,1,randomNumber(-120,html.clientWidth+120),-200]) //Icon, Size, Speed, Fades? Opacity, X-Pos, Y-Pos
+                let bubble = document.createElement("p")
+                bubble.classList.add("bubble")
+                bubble.id = `bubble${i}`
+                bubble.style.left = `${bubbleArray[i][5]}px`
+                bubble.style.top = `${bubbleArray[i][6]}px`
+                bubble.style.fontSize = `${bubbleArray[i][1]}px`
+                    if (icon == 'heart') {
+                        bubble.textContent = "💕"
+                    }
+                document.getElementById("bubbleHolder").appendChild(bubble)
             }
         }
+        function bubbleLoop() {
+            for (let i = 0; i < bubbleArray.length; i++) {
+                let currentBubble = bubbleArray[i]
+                currentBubble[6] += currentBubble[2]
+                if (currentBubble[6] > html.clientHeight+200) {
+                    currentBubble[6] = -200
+                    currentBubble[2] = randomNumber(5,10)
+                    currentBubble[5] = randomNumber(-120,html.clientWidth+120)
+                    currentBubble[1] = randomNumber(90,180)
+                }
+                bubbleArray[i] = currentBubble
+                document.getElementById(`bubble${i}`).style.left = `${bubbleArray[i][5]}px`
+                document.getElementById(`bubble${i}`).style.top = `${bubbleArray[i][6]}px`
+                document.getElementById(`bubble${i}`).style.fontSize = `${bubbleArray[i][1]}px`
+            }
+        }
+        let bubbleLoopInterval = setInterval(bubbleLoop,10)
         function randomNumber(min, max) { 
             return Math.floor(Math.random() * (max - min) + min);
         } 
