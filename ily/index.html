@@ -51,7 +51,7 @@
     <script>
         let html = document.querySelector("html")
         let bubbleArray = [];
-        let bubblePreset = ['heart',15,[90,180],[2,5],false];
+        let bubblePreset = ['heart',15,[20,40],[2,5],false];
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
         if (name != null) {
@@ -87,7 +87,7 @@
             rb = ab + amount * (bb - ab);
             return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
         }
-        createBubbles('heart',15,[90,180],[2,5],false)
+        createBubbles('heart',15,[20,40],[2,5],false)
         function createBubbles(icon,number,size,range,fades) { //Icon, Number of Bubbles, Size Range (pixels), Speed Range (per frame), Fades?
             //Clears Bubble Array
             bubbleArray = [];
@@ -117,7 +117,7 @@
                     currentBubble[6] = -200
                     currentBubble[2] = randomNumber(2,5)
                     currentBubble[5] = randomNumber(-120,html.clientWidth+120)
-                    currentBubble[1] = randomNumber(90,180)
+                    currentBubble[1] = randomNumber(20,40)
                 }
                 bubbleArray[i] = currentBubble
                 document.getElementById(`bubble${i}`).style.left = `${bubbleArray[i][5]}px`
