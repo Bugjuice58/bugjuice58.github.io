@@ -6,6 +6,8 @@
 ////////Backend
 // Deal with 2-Digit Hex Overflows (as to not get disconnected from lightbulb)
 
+let weatherAPIKEY = '';
+
 let rh = 0;
 let gs = 0;
 let bl = 0.3;
@@ -589,4 +591,42 @@ function getAlertLevel(value) {
   let v = value.getUint8(0);
   return v + (v in valueToAlertLevel ?
       ' (' + valueToAlertLevel[v] + ')' : 'Unknown');
+}
+
+//////////////////// BEGIN WEATHER SEGMENT ////////////////////
+
+let sunriseTime;
+let sunsetTime;
+let weatherData;
+let coords;
+let locationSuccess = false;
+
+function getCurrentSunTime() {
+    if (locationSuccess) {
+        // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+        fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${coords.latitude}&lon=${coords.longitude}&appid=${weatherAPIKEY}`);
+         .then((response) => response.json());
+         .then((data) => weatherData=JSON.parse(data));
+         sunriseTime = weatherData.current.sunrise;
+         sunsetTime = weatherData.current.sunset;
+        console.log(sunsetTime,sunriseTime);
+    }
+}
+
+function success(x) {
+    coords = x.coords
+    locationSuccess = true;
+    getCurrentSunTime();
+}
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+function error(x) {
+    //nah chief im not dealing with error code rn
 }
