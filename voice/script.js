@@ -62,7 +62,7 @@ function checkForCommand(speechSent) {
             darkBrightColor(parseInt(speechSent.split("bright ")[1]),'brighten');
           } else {
             if (speechSent.includes("off")) {
-              //tempColorStore = getComputedStyle(document.querySelector("#p")).color;
+              //tempColorStore = getComputedStyle(document.querySelector("#colorSee")).color;
               //lastKnownColor = [tempColorStore.split('rgb(')[1].split(',')[0],tempColorStore.split(', ')[1],tempColorStore.split(', ')[2].split(')')[0]];
               //onWriteButtonClick(0,0,0);
             } else {
@@ -83,18 +83,18 @@ function checkForCommand(speechSent) {
 
 //// BEGIN COLOR PARSER CODE
 function changeColor(colorWord) {
-  bg = document.querySelector("#p");
+  bg = document.querySelector("#colorSee");
   bg.style.color = colorWord;
-  tempColorStore = getComputedStyle(document.querySelector("#p")).color;
+  tempColorStore = getComputedStyle(document.querySelector("#colorSee")).color;
   tempColorArray = [tempColorStore.split('rgb(')[1].split(',')[0],tempColorStore.split(', ')[1],tempColorStore.split(', ')[2].split(')')[0]];
-  let hexColor = `#${tempColorArray[0].toString(16)}${tempColorArray[1].toString(16)}${tempColorArray[2].toString(16)}`
+  let hexColor = `#${parseInt(tempColorArray[0]).toString(16)}${parseInt(tempColorArray[1]).toString(16)}${parseInt(tempColorArray[2]).toString(16)}`
   document.querySelector("#hexValue").textContent = hexColor;
-  document.querySelector("#p").style.backgroundColor = hexColor;
+  document.querySelector("#colorSee").style.backgroundColor = hexColor;
   onWriteButtonClick(parseInt(tempColorArray[0]),parseInt(tempColorArray[1]),parseInt(tempColorArray[2]));
 }
 
 function darkBrightColor(amount,whichChange) {
-  tempColorStore = getComputedStyle(document.querySelector("#p")).color;
+  tempColorStore = getComputedStyle(document.querySelector("#colorSee")).color;
   tempColorArray = [tempColorStore.split('rgb(')[1].split(',')[0],tempColorStore.split(', ')[1],tempColorStore.split(', ')[2].split(')')[0]];
   tempHslArray = rgbToHsl(parseInt(tempColorArray[0]),parseInt(tempColorArray[1]),parseInt(tempColorArray[2]));
   if (whichChange == 'darken') { 
@@ -138,7 +138,7 @@ function onReadButtonClick() {
       alertLevelCharacteristic = characteristic;
       //console.log('Reading Alert Level...');
       recognition.start();
-      document.querySelector('#btConnect').style.display = none;
+      document.querySelector('#btConnect').style.display = 'none';
     })
     .catch(error => {
       console.log('OOF ' + error);
@@ -147,10 +147,10 @@ function onReadButtonClick() {
 }
 
 function onWriteButtonClick(r, g, b) {
-  bg = document.querySelector("#p");
+  bg = document.querySelector("#colorSee");
   bg.style.color = `rgb(${r},${g},${b})`;
   // If you wish the background to not change, comment this out \/
-  document.querySelector("html").style.backgroundColor = `rgb(${r},${g},${b})`;
+  //document.querySelector("html").style.backgroundColor = `rgb(${r},${g},${b})`;
   if (!alertLevelCharacteristic) {
     return;
   }
