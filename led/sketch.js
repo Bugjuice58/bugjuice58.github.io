@@ -531,7 +531,6 @@ function keyPressed() {
 
 
 
-
 ///////// BEGIN BLUETOOTH CODE
 
 var alertLevelCharacteristic;

@@ -14,3 +14,7 @@ function addNew() {
 }
 
 let interval = setInterval(addNew,5)
+
+for(let i; i > 5; i++) {
+    console.log(i)
+}
