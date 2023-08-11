@@ -13,6 +13,7 @@ let f = false;
 let theme = 'night';
 let backgroundOn = true;
 let showVid = false;
+let backgroundKinda = false;
 
 function setup() {
   createCanvas(displayWidth, displayHeight, WEBGL);
@@ -29,12 +30,18 @@ function draw() {
   if (backgroundOn) {
   background(0);
   }
+  if (backgroundKinda) {
+  background(0,0.1);
+  }
   noFill();
   stroke(c, 100, 50);
   }
   if (theme === 'retro') {
   if (backgroundOn) {
   background(c,100,25);
+  }
+  if (backgroundKinda) {
+  background(`rgba(${c},100,25,0.1)`);
   }
   fill(c,100,50);
   stroke(c,100,25);
@@ -92,11 +99,20 @@ function keyPressed() {
     }
   }
   if (key === 'b') {
+    if (backgroundKinda) {
+      backgroundKinda = false
+    }
     if (backgroundOn) {
       backgroundOn = false
     } else {
       backgroundOn = true
     }
+  }
+  if (key === 'v') {
+    if (backgroundOn) {
+      backgroundOn = false
+    }
+    backgroundKinda = !backgroundKinda
   }
   if (key === 'h') {
     if (showVid) {
